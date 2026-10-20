@@ -294,3 +294,11 @@
 .account-card { max-width: 960px; }
 .account-card span { display: block; }
 .account-grid .editor-form { align-content: start; }
+
+/* App instalada en el iPhone: deja sitio para la barra de estado (hora, batería)
+   y para la rayita de abajo. En el navegador normal estos valores son 0. */
+body { padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+@media (max-width: 760px) {
+  .modal.sheet .modal-inner { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
+  .page-footer { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+}
