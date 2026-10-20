@@ -1,0 +1,52 @@
+:root {
+  /* Valores por defecto (Lima oscuro). theme.ts los sobrescribe al arrancar. */
+  --bg: #0F1110;
+  --surface: #171A18;
+  --row-hi: #1A1E1B;
+  --chip: #232824;
+  --line: #252A26;
+  --line-2: #3A403B;
+  --text: #ECEFEA;
+  --muted: #9AA39C;
+  --faint: #6E776F;
+  --accent: #C6F432;
+  --accent-text: #C6F432;
+  --on-accent: #0F1110;
+  --accent-soft: rgba(198, 244, 50, 0.12);
+  --warn: #F0A07A;
+  --danger: #FF8A80;
+  --danger-soft: rgba(255, 138, 128, 0.12);
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: Barlow, "Segoe UI", system-ui, sans-serif;
+
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: var(--bg); color: var(--text); }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+a { color: inherit; }
+button, input, select, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.01em; }
+h1 { font-size: 44px; line-height: 1; font-weight: 800; }
+h2 { font-size: 22px; line-height: 1.2; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 700; }
+input, select { min-height: 44px; border: 1px solid var(--line-2); border-radius: 4px; background: var(--bg); padding: 10px 12px; color: var(--text); min-width: 0; }
+input::placeholder { color: var(--faint); }
+select option { background: var(--surface); color: var(--text); }
+svg { flex-shrink: 0; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

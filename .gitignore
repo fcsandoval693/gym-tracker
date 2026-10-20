@@ -1,0 +1,22 @@
+# Archivos que NO se deben subir a GitHub
+
+# Contraseñas y claves
+.env
+
+# Entornos virtuales de Python
+.venv/
+venv/
+
+# Archivos que Python genera solo
+__pycache__/
+*.pyc
+
+# Bases de datos locales
+*.sqlite3
+
+# Dependencias y compilados del frontend
+node_modules/
+dist/
+
+# Estáticos que Django reúne al publicar (se generan solos)
+staticfiles/

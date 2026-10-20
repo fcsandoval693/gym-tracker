@@ -1,0 +1,26 @@
+# Core web framework
+Django>=5.2,<6.0
+
+# Environment variables for settings such as SECRET_KEY and DEBUG
+python-decouple>=3.8,<4.0
+
+# Better static files handling when deploying later
+whitenoise>=6.7,<7.0
+
+# Database driver for PostgreSQL when we move beyond SQLite
+psycopg[binary]>=3.2,<4.0
+
+# Development helpers
+django-debug-toolbar>=5.0,<6.0
+
+# API REST (incluye los tokens de login: rest_framework.authtoken)
+djangorestframework>=3.15,<4.0
+
+# Permite que React (otro puerto) llame a la API
+django-cors-headers>=4.4,<5.0
+
+# Servidor para cuando la app esté publicada (runserver solo sirve para desarrollar)
+gunicorn>=23.0,<24.0
+
+# Lee la base de datos desde una sola dirección (DATABASE_URL), como la dan los hostings
+dj-database-url>=2.3,<3.0
