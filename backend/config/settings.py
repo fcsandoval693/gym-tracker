@@ -95,7 +95,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Si existe, se usa esa; si no, los datos sueltos DB_NAME, DB_USER... de tu .env.
 if config("DATABASE_URL", default=""):
     import dj_database_url
-    DATABASES = {"default": dj_database_url.parse(config("DATABASE_URL"), conn_max_age=600)}
+    # conn_health_checks: Neon "se duerme" tras unos minutos sin uso y corta las conexiones abiertas.
+    # Antes de reutilizar una conexión, Django comprueba que sigue viva; si no, abre otra.
+    DATABASES = {"default": dj_database_url.parse(config("DATABASE_URL"), conn_max_age=600, conn_health_checks=True)}
 else:
     DATABASES = {
         "default": {
@@ -179,3 +181,12 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+# Los errores del servidor se escriben en el registro (en Render: pestaña Logs).
+# Sin esto, con DEBUG apagado, un error 500 no deja ninguna pista.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {'console': {'class': 'logging.StreamHandler'}},
+    'loggers': {'django': {'handlers': ['console'], 'level': 'WARNING'}},
+}
