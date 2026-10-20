@@ -6,6 +6,7 @@ import { getExercises } from '../api/exercises'
 import { getRoutineDays, weekdays } from '../api/planner'
 import { getSessions, startSession, finishSession, getWorkoutSets, saveWorkoutSet, deleteWorkoutSet, getSession, completeExercise, editSessionExercise, removeSessionExercise } from '../api/workouts'
 import StatusMessage from '../components/StatusMessage'
+import PagedList from '../components/PagedList'
 import Modal from '../components/Modal'
 import WorkoutExercise from '../components/WorkoutExercise'
 import { draftKey, readDraft } from '../workoutDrafts'
@@ -256,7 +257,7 @@ export default function WorkoutPage({ onPlan, autoStartDay = null, onAutoStartHa
         <TrainingChooser routines={routines} days={days} sessions={sessions} exercises={library} busy={busy} onStart={day => start(day)} onContinue={item => openSession(item)} onPlan={onPlan} />
       </section>
       <div className="section-heading"><h2>Entrenamientos finalizados</h2><span>{sessions.filter(item => !!item.end_time).length} sesiones</span></div>
-      {sessions.filter(item => !!item.end_time).map(item => <div className="session-list-row" key={item.id}><div><strong>{item.day_name || 'Entrenamiento'}</strong><p className="muted">{item.routine_name} · {new Date(item.start_time).toLocaleDateString('es')}</p></div><button className="button secondary" disabled={busy} onClick={() => openSession(item)}>Ver sesión</button></div>)}
+      <PagedList items={sessions.filter(item => !!item.end_time)} label="entrenamientos">{page => page.map(item => <div className="session-list-row" key={item.id}><div><strong>{item.day_name || 'Entrenamiento'}</strong><p className="muted">{item.routine_name} · {new Date(item.start_time).toLocaleDateString('es')}</p></div><button className="button secondary" disabled={busy} onClick={() => openSession(item)}>Ver sesión</button></div>)}</PagedList>
       {!sessions.some(item => item.end_time) && <p className="muted">Todavía no hay entrenamientos finalizados.</p>}
     </>}
   </>

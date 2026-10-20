@@ -292,7 +292,6 @@
   .group-bars li { grid-template-columns: 90px 1fr 30px; }
 }
 .bar-chart.weekly small { white-space: nowrap; overflow: visible; }
-.show-more { margin-top: 16px; width: 100%; max-width: 360px; }
 
 /* Objetivo de series y repeticiones */
 .target-fields { border: 0; padding: 0; margin: 0; }

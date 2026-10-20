@@ -6,6 +6,7 @@ import { equipmentOptions, muscleGroups } from '../exerciseSettings'
 import ExerciseSettingsFields from './ExerciseSettingsFields'
 import MuscleGroupSelect from './MuscleGroupSelect'
 import StatusMessage from './StatusMessage'
+import PagedList from './PagedList'
 
 export type PickedExercise = { exercise: Exercise; variant: string; equipment: Equipment; unit: WeightUnit }
 
@@ -79,13 +80,13 @@ export default function ExercisePicker({ exercises, excluded, busy, onPick, onCr
       <button type="button" className="chip" aria-pressed={group === ''} onClick={() => setGroup('')}>Todos</button>
       {groups.map(item => <button key={item} type="button" className="chip" aria-pressed={group === item} onClick={() => setGroup(item)}>{item}</button>)}
     </div>
-    <ul className="picker-list">
-      {results.map(exercise => <li key={exercise.id}><button type="button" onClick={() => choose(exercise)}>
+    <PagedList items={results} pageSize={8} resetKey={`${query}|${group}`} label="ejercicios">{page => <ul className="picker-list">
+      {page.map(exercise => <li key={exercise.id}><button type="button" onClick={() => choose(exercise)}>
         <span><strong>{exercise.name}</strong><small>{[exercise.muscle_group, equipmentLabel(exercise.equipment), exercise.variants?.length ? `${exercise.variants.length} variantes` : null].filter(Boolean).join(' · ')}</small></span>
         {exercise.is_builtin ? <Lock size={14} aria-label="Del catálogo" /> : <span className="own-tag">Tuyo</span>}
       </button></li>)}
       {!results.length && <li className="muted picker-empty">No hay ejercicios con esa búsqueda.</li>}
-    </ul>
+    </ul>}</PagedList>
     <button type="button" className="button secondary picker-create" onClick={() => { setCreating(true); setNewName(query); setNewGroup(group) }}><Plus size={18} />Crear ejercicio propio</button>
   </div>
 }

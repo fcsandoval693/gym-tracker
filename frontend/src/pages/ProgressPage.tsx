@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { getSessions, getWorkoutSets } from '../api/workouts'
 import type { WorkoutSession, WorkoutSet } from '../types'
 import StatusMessage from '../components/StatusMessage'
+import PagedList from '../components/PagedList'
 import ProgressLineChart from '../components/ProgressLineChart'
 import { volumeKg } from '../exerciseSettings'
 import { bestSet, exerciseOf, formatNumber, setLabel, shortDate, toKg, weekStart } from '../stats'
@@ -27,7 +28,6 @@ export default function ProgressPage() {
   const [exerciseId, setExerciseId] = useState<number | null>(null)
   const [hoverWeek, setHoverWeek] = useState<number | null>(null)
   const [now] = useState(() => Date.now())
-  const [shown, setShown] = useState(10)
 
   useEffect(() => {
     let active = true
@@ -167,7 +167,7 @@ export default function ProgressPage() {
 
       <section className="history-section" aria-labelledby="history-title">
         <div className="section-heading"><h2 id="history-title">Historial</h2><span>{view.inPeriod.length} sesiones</span></div>
-        {view.inPeriod.slice(0, shown).map(session => {
+        <PagedList items={view.inPeriod} resetKey={period} label="sesiones">{page => page.map(session => {
           const list = view.bySession.get(session.id) ?? []
           return <details className="session-details" key={session.id}>
             <summary><div><strong>{session.day_name || 'Entrenamiento'}</strong><span className="muted">{shortDate(session.start_time)} · {session.routine_name}</span></div><span className="summary-stats">{list.length} series · {formatNumber(volumeKg(list), 0)} kg · {minutesOf(session)} min</span></summary>
@@ -176,8 +176,7 @@ export default function ProgressPage() {
               return done.length ? <li key={item.id}><span>{item.name}</span><div className="set-chips">{done.map(set => <span key={set.id}>{setLabel(set)}</span>)}</div></li> : null
             })}</ul>
           </details>
-        })}
-        {view.inPeriod.length > shown && <button type="button" className="button secondary show-more" onClick={() => setShown(count => count + 20)}>Ver más sesiones ({view.inPeriod.length - shown})</button>}
+        })}</PagedList>
       </section>
     </>}
   </>

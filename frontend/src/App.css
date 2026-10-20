@@ -302,3 +302,18 @@ body { padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-
   .modal.sheet .modal-inner { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
   .page-footer { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
 }
+
+/* Paginación de listas */
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 16px; }
+.pagination-count { font-size: 13px; color: var(--muted); }
+.pagination-buttons { display: flex; align-items: center; gap: 4px; }
+.pagination-page {
+  min-width: 40px; height: 40px; padding: 0 8px; border-radius: 4px; border: 1px solid transparent; background: transparent;
+  color: var(--text); font-family: var(--font-display); font-weight: 700; font-size: 17px;
+}
+.pagination-page:hover { background: var(--chip); }
+.pagination-page[aria-current="page"] { background: var(--accent); color: var(--on-accent); }
+.pagination-gap { color: var(--faint); padding: 0 4px; }
+.pagination .icon-button:disabled { opacity: 0.35; }
+@media (max-width: 760px) { .pagination { justify-content: center; } .pagination-count { width: 100%; text-align: center; } }
+.paged-anchor { scroll-margin-top: 16px; }
