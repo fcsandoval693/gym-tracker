@@ -84,12 +84,12 @@ export default function App() {
       <div className="sidebar-top">
         <a className="brand" href="#inicio" title={collapsed ? 'Inicio' : undefined} onClick={event => { event.preventDefault(); go('home') }}><span className="brand-icon"><Dumbbell size={20} /></span><span className="brand-name">Gym Tracker</span></a>
         <button type="button" className="icon-button collapse-toggle" aria-expanded={!collapsed} aria-label={collapsed ? 'Desplegar menú' : 'Plegar menú'} title={collapsed ? 'Desplegar menú' : 'Plegar menú'} onClick={toggleSidebar}>{collapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}</button>
+        {/* En el móvil, Ajustes es la rueda de arriba a la derecha; abajo quedan las 5 secciones principales. */}
+        <button type="button" className={`icon-button mobile-settings ${page === 'settings' ? 'active' : ''}`} aria-label="Ajustes" aria-current={page === 'settings' ? 'page' : undefined} onClick={() => go('settings')}><Settings size={22} /></button>
       </div>
       <span className="nav-caption">MI ENTRENAMIENTO</span>
       <nav aria-label="Principal">
         {pages.map(({ id, label, icon }) => navButton(id, label, icon))}
-        {/* En el móvil, Ajustes va con el resto del menú; en pantalla grande, abajo del todo. */}
-        {navButton('settings', 'Ajustes', Settings, 'mobile-only')}
       </nav>
       <div className="sidebar-bottom">
         {navButton('settings', 'Ajustes', Settings)}

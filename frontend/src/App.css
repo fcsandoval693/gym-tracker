@@ -246,7 +246,7 @@
 
 /* ---------- Menú lateral plegable (solo en pantalla grande) ---------- */
 .sidebar-bottom { display: grid; gap: 2px; padding-top: 12px; border-top: 1px solid var(--line); }
-.nav-item.mobile-only { display: none; }
+
 .sidebar, .workspace { transition: width .2s ease, margin-left .2s ease; }
 @media (min-width: 761px) {
   .app-shell.collapsed .sidebar { width: 72px; padding-inline: 12px; }
@@ -257,7 +257,7 @@
   .app-shell.collapsed .nav-item { justify-content: center; padding: 0; }
 }
 @media (max-width: 760px) {
-  .nav-item.mobile-only { display: flex; }
+
   .sidebar-bottom { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .sidebar, .workspace { transition: none; } }
@@ -317,3 +317,24 @@ body { padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-
 .pagination .icon-button:disabled { opacity: 0.35; }
 @media (max-width: 760px) { .pagination { justify-content: center; } .pagination-count { width: 100%; text-align: center; } }
 .paged-anchor { scroll-margin-top: 16px; }
+
+/* Móvil: menú fijo abajo, como las apps del iPhone (se llega con el pulgar). */
+.mobile-settings { display: none; }
+@media (max-width: 760px) {
+  .sidebar { padding-bottom: 12px; }
+  .mobile-settings { display: inline-grid; }
+  .mobile-settings.active { color: var(--accent-text); background: var(--chip); }
+  .sidebar nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0;
+    grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    background: var(--surface); border-top: 1px solid var(--line);
+  }
+  .nav-item { border-radius: 6px; min-height: 52px; }
+  .nav-item:hover { background: transparent; }
+  .nav-item.active { background: transparent; box-shadow: none; color: var(--accent-text); }
+  .nav-item.active svg { color: var(--accent-text); }
+  /* Deja sitio al final de la página para que el menú no tape el contenido. */
+  .app-shell { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+  .page-footer { padding-bottom: 20px; }
+}
